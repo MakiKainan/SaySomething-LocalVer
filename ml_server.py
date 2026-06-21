@@ -4,13 +4,13 @@ import torch
 from flask import Flask, request, jsonify
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-BASE = Path(__file__).parent.parent
+BASE = Path(__file__).parent
 LABELS = ["toxic", "severe_toxic", "obscene", "threat", "insult", "identity_hate"]
 
 print("Loading DistilBERT...")
 tokenizer = AutoTokenizer.from_pretrained(BASE / "tokenizer")
 model = AutoModelForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=6)
-model.load_state_dict(torch.load(BASE / "distilbert_weights.pt", map_location="cpu"))
+model.load_state_dict(torch.load(BASE / "best_bert.pt", map_location="cpu"))
 model.eval()
 print("Ready.")
 
